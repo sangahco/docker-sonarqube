@@ -1,0 +1,11 @@
+version: "3"
+
+services:
+
+  sonarqube:
+    networks: 
+      hub_net:
+
+networks: 
+  hub_net:
+    external: true
