@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  sonarqube:
+    image: sonarqube:${SONAR_VERSION}
+    ports:
+    - "9000:9000"
+    - "9092:9092"
+    networks:
+    - sonarnet
+    environment:
+    - SONARQUBE_JDBC_URL=${SONAR_JDBC_URL}
+    - SONARQUBE_JDBC_USERNAME=${SONAR_JDBC_USERNAME}
+    - SONARQUBE_JDBC_PASSWORD=${SONAR_JDBC_PASSWORD}
+    volumes:
+    #- ${SONAR_HOME}/conf:/opt/sonarqube/conf
+    - ${SONAR_HOME}/data:/opt/sonarqube/data
+    - ${SONAR_HOME}/extensions:/opt/sonarqube/extensions
+    - ${SONAR_HOME}/bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+
+networks: 
+  sonarnet:
