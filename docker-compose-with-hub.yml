@@ -5,6 +5,8 @@ services:
   sonarqube:
     networks: 
       hub_net:
+        aliases: 
+        - ${HUB_INSTANCE}
 
 networks: 
   hub_net:

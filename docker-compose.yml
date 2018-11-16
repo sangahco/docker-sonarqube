@@ -17,6 +17,7 @@ services:
     - ${SONAR_HOME}/data:/opt/sonarqube/data
     - ${SONAR_HOME}/extensions:/opt/sonarqube/extensions
     - ${SONAR_HOME}/bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+    restart: "unless-stopped"
 
 networks: 
   sonarnet:
