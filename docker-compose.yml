@@ -25,6 +25,8 @@ services:
       POSTGRES_DB: sonarqube
       POSTGRES_PASSWORD: ${SONAR_JDBC_PASSWORD}
       POSTGRES_USER: ${SONAR_JDBC_USERNAME}
+    networks:
+    - sonarnet
     logging:
       driver: "json-file"
       options:
