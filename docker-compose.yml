@@ -9,15 +9,30 @@ services:
     networks:
     - sonarnet
     environment:
-    - SONARQUBE_JDBC_URL=${SONAR_JDBC_URL}
+    - SONARQUBE_JDBC_URL=jdbc:postgresql://db/sonarqube
     - SONARQUBE_JDBC_USERNAME=${SONAR_JDBC_USERNAME}
     - SONARQUBE_JDBC_PASSWORD=${SONAR_JDBC_PASSWORD}
     volumes:
-    #- ${SONAR_HOME}/conf:/opt/sonarqube/conf
+    - ${SONAR_HOME}/conf:/opt/sonarqube/conf
     - ${SONAR_HOME}/data:/opt/sonarqube/data
     - ${SONAR_HOME}/extensions:/opt/sonarqube/extensions
     - ${SONAR_HOME}/bundled-plugins:/opt/sonarqube/lib/bundled-plugins
     restart: "unless-stopped"
+
+  db:
+    image: postgres:11-alpine
+    environment:
+      POSTGRES_DB: sonarqube
+      POSTGRES_PASSWORD: ${SONAR_JDBC_PASSWORD}
+      POSTGRES_USER: ${SONAR_JDBC_USERNAME}
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    restart: unless-stopped
+    volumes:
+    - ${SONAR_HOME}/db:/var/lib/postgresql/data
 
 networks: 
   sonarnet:
