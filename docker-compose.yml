@@ -17,6 +17,8 @@ services:
     - ${SONAR_HOME}/data:/opt/sonarqube/data
     - ${SONAR_HOME}/extensions:/opt/sonarqube/extensions
     - ${SONAR_HOME}/bundled-plugins:/opt/sonarqube/lib/bundled-plugins
+    depends_on: 
+    - db
     restart: "unless-stopped"
 
   db:
